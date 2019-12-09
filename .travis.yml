@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 12
+services:
+  - mongodb
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - cd $TRAVIS_BUILD_DIR/src/client
+  - npm install
+  - npm test
+  - cd $TRAVIS_BUILD_DIR
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: wc3-build-order-app
