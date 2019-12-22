@@ -1,8 +1,10 @@
 import {
     ADD_BUILD_ORDER_TASK,
+    ADD_TASK_INDENT,
     BuildOrderForm,
     BuildOrderFormActionTypes,
     BuildOrderTaskDescription,
+    DECREASE_TASK_INDENT,
     EDIT_BUILD_ORDER_TASK,
     MOVE_BUILD_ORDER_TASK_DOWN,
     MOVE_BUILD_ORDER_TASK_UP,
@@ -38,6 +40,20 @@ export function moveBuildOrderTaskDown(id: number): BuildOrderFormActionTypes {
 export function moveBuildOrderTaskUp(id: number): BuildOrderFormActionTypes {
     return {
         type: MOVE_BUILD_ORDER_TASK_UP,
+        payload: id,
+    };
+}
+
+export function addTaskIndent(id: number): BuildOrderFormActionTypes {
+    return {
+        type: ADD_TASK_INDENT,
+        payload: id,
+    };
+}
+
+export function decreaseTaskIndent(id: number): BuildOrderFormActionTypes {
+    return {
+        type: DECREASE_TASK_INDENT,
         payload: id,
     };
 }

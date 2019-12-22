@@ -9,6 +9,12 @@ const actionSchema: Schema = new Schema({
         required: true,
         unique: true,
     },
+    indentation: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 3,
+    },
     actionCode: {
         type: String,
         enum: Object.values(ActionCode),

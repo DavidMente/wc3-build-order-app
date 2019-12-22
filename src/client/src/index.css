@@ -29,6 +29,18 @@
     border: none;
 }
 
+.build-order-item-indent-1 {
+    padding-left: 25px;
+}
+
+.build-order-item-indent-2 {
+    padding-left: 50px;
+}
+
+.build-order-item-indent-3 {
+    padding-left: 75px;
+}
+
 .action-image-container {
     position: relative;
 }

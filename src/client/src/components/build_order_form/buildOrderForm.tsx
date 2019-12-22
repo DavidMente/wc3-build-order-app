@@ -3,13 +3,11 @@ import {BuildOrderLayout} from '../build_order/buildOrderLayout';
 import RaceSelect from './raceSelect';
 import ActionGrid from '../actions/actionGrid';
 import {RootState} from '../../store';
-import {tasksWithAccumulations} from '../../store/build_order_form/reducers';
 import {fetchBuildOrderForm, resetBuildOrderForm} from '../../store/build_order_form/actions';
 import {connect, ConnectedProps} from 'react-redux';
 import {RouteComponentProps, withRouter} from 'react-router';
 import SaveBuildOrder from './saveBuildOrder';
 import {BuildOrderTaskComponent} from '../build_order/buildOrderTaskComponent';
-import {BuildOrderSummary} from '../build_order/buildOrderSummary';
 import EditBuildOrderMetadata from './editBuildOrderMetadata';
 import DeleteBuildOrder from './deleteBuildOrder';
 
@@ -17,7 +15,7 @@ const mapState = (state: RootState) => {
     return {
         buildOrder: {
             ...state.buildOrderForm,
-            tasks: tasksWithAccumulations(state.buildOrderForm.tasks, state.buildOrderForm.race),
+            tasks: state.buildOrderForm.tasks,
         },
     };
 };
@@ -61,17 +59,17 @@ const BuildOrderForm: FunctionComponent<BuildOrderFormProps> = ({buildOrder, fet
         buildOrder={
             <div>
                 {buildOrder.tasks.map((task) =>
-                    <BuildOrderTaskComponent key={task.id} id={task.id}
-                                             actionCode={task.actionCode}
-                                             description={task.description}
-                                             editMode={true}
-                                             accumulatedFoodCost={task.accumulatedFoodCost}
-                                             accumulatedSupply={task.accumulatedSupply}/>)}
+                    <BuildOrderTaskComponent
+                        indentation={task.indentation}
+                        key={task.id} id={task.id}
+                        actionCode={task.actionCode}
+                        description={task.description}
+                        editMode={true}
+                    />)}
             </div>
         }
         summary={
             <div>
-                <BuildOrderSummary buildOrderTasks={buildOrder.tasks} race={buildOrder.race}/>
                 {buildOrder.tasks.length > 0 ? <SaveBuildOrder/> : ''}
                 {buildOrder._id !== undefined ? <DeleteBuildOrder/> : ''}
                 {Object.keys(buildOrder.errors).length > 0 ?

@@ -13,6 +13,7 @@ export interface BuildOrderTaskDescription {
 
 export interface BuildOrderTask extends BuildOrderTaskDescription {
     id: number,
+    indentation: number,
     actionCode: ActionCode,
     accumulatedSupply?: number,
     accumulatedFoodCost?: number,
@@ -30,6 +31,8 @@ export const SET_BUILD_ORDER_FORM = 'SET_BUILD_ORDER_FORM';
 export const SET_BUILD_ORDER_FORM_ERRORS = 'SET_BUILD_ORDER_FORM_ERRORS';
 export const RESET_BUILD_ORDER_FORM = 'RESET_BUILD_ORDER_FORM';
 export const DELETE_BUILD_ORDER = 'DELETE_BUILD_ORDER';
+export const ADD_TASK_INDENT = 'ADD_TASK_INDENT';
+export const DECREASE_TASK_INDENT = 'DECREASE_TASK_INDENT';
 
 interface AddBuildOrderTask {
     type: typeof ADD_BUILD_ORDER_TASK,
@@ -54,6 +57,16 @@ interface MoveBuildOrderTaskUp {
 interface RemoveBuildOrderTask {
     type: typeof REMOVE_BUILD_ORDER_TASK,
     payload: number
+}
+
+interface AddTaskIndent {
+    type: typeof ADD_TASK_INDENT,
+    payload: number,
+}
+
+interface DecreaseTaskIndent {
+    type: typeof DECREASE_TASK_INDENT,
+    payload: number,
 }
 
 interface EditBuildOrderTask {
@@ -107,3 +120,5 @@ export type BuildOrderFormActionTypes =
     | ResetBuildOrderForm
     | SetBuildOrderFormErrors
     | DeleteBuildOrder
+    | AddTaskIndent
+    | DecreaseTaskIndent

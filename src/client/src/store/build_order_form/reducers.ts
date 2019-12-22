@@ -1,8 +1,10 @@
 import {
     ADD_BUILD_ORDER_TASK,
+    ADD_TASK_INDENT,
     BuildOrderForm,
     BuildOrderFormActionTypes,
     BuildOrderTask,
+    DECREASE_TASK_INDENT,
     EDIT_BUILD_ORDER_TASK,
     MOVE_BUILD_ORDER_TASK_DOWN,
     MOVE_BUILD_ORDER_TASK_UP,
@@ -14,7 +16,6 @@ import {
     UPDATE_BUILD_ORDER,
 } from './types';
 import {PasswordRepository} from '../../local_storage/PasswordRepository';
-import {ActionCode, Race} from '../common/types';
 import {mapActionCodeToDetails} from '../common/actionCodes';
 
 const initialState: BuildOrderForm = {
@@ -77,6 +78,7 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
                 ...state,
                 tasks: [...state.tasks, {
                     id: generateId(state.tasks),
+                    indentation: 0,
                     actionCode: action.payload,
                     description,
                 }],
@@ -92,6 +94,22 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
                 tasks: state.tasks.map((task) => task.id === action.payload.id ? {
                     ...task,
                     description: action.payload.description,
+                } : task),
+            };
+        case ADD_TASK_INDENT:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => task.id === action.payload ? {
+                    ...task,
+                    indentation: task.indentation < 3 ? task.indentation + 1 : task.indentation,
+                } : task),
+            };
+        case DECREASE_TASK_INDENT:
+            return {
+                ...state,
+                tasks: state.tasks.map((task) => task.id === action.payload ? {
+                    ...task,
+                    indentation: task.indentation > 0 ? task.indentation - 1 : task.indentation,
                 } : task),
             };
         case SELECT_BUILD_ORDER_RACE:
@@ -160,42 +178,4 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
         default:
             return state;
     }
-}
-
-function accumulateBuildOrderTasks(current: BuildOrderTask, previous: BuildOrderTask): BuildOrderTask {
-    const entity = mapActionCodeToDetails(current.actionCode);
-    return {
-        ...current,
-        accumulatedFoodCost: (previous.accumulatedFoodCost || 0) + (entity.foodCost || 0),
-        accumulatedSupply: (previous.accumulatedSupply || 0) + (entity.foodProvided || 0),
-    };
-}
-
-function defaultBuildOrderByRace(race: Race | null): BuildOrderTask {
-    switch (race) {
-        case Race.NIGHTELF:
-        case Race.ORC:
-        case Race.UNDEAD:
-            return {
-                id: 0,
-                description: null,
-                actionCode: ActionCode.CUSTOM,
-                accumulatedFoodCost: 5,
-                accumulatedSupply: 10,
-            };
-        case Race.HUMAN:
-        default:
-            return {
-                id: 0,
-                description: null,
-                actionCode: ActionCode.CUSTOM,
-                accumulatedFoodCost: 5,
-                accumulatedSupply: 12,
-            };
-    }
-}
-
-export function tasksWithAccumulations(tasks: BuildOrderTask[], race: Race | null): BuildOrderTask[] {
-    return tasks.map(((previousTask: BuildOrderTask) => (task: BuildOrderTask) =>
-        previousTask = accumulateBuildOrderTasks(task, previousTask))(defaultBuildOrderByRace(race)));
 }

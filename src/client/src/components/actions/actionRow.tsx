@@ -29,7 +29,8 @@ function getAvailableActionCodes(allActionCodes: ActionCode[], selectedActionCod
 export const ActionRow: FunctionComponent<ActionRowProps> = ({selectedActionCodes, race, type}) => {
 
     const hasAltar = selectedActionCodes
-        .some((code) => [ActionCode.ALTAR_OF_ELDERS, ActionCode.ALTAR_OF_KINGS].includes(code));
+        .some((code) => [ActionCode.ALTAR_OF_ELDERS, ActionCode.ALTAR_OF_KINGS,
+            ActionCode.ALTAR_OF_STORMS].includes(code));
 
     return <div>
         {getAvailableActionCodes(getActionCodesByRaceAndType(race, type), selectedActionCodes).map((actionCode) =>

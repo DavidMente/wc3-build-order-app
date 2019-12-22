@@ -2,11 +2,8 @@ import React, {FunctionComponent, useEffect} from 'react';
 import {BuildOrderTaskComponent} from './buildOrderTaskComponent';
 import {RootState} from '../../store';
 import {connect, ConnectedProps} from 'react-redux';
-import {tasksWithAccumulations} from '../../store/build_order_form/reducers';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {BuildOrderSummary} from './buildOrderSummary';
 import {fetchBuildOrder} from '../../store/build_order/actions';
-import EditBuildOrderButton from './editBuildOrderButton';
 import {BuildOrderLayout} from './buildOrderLayout';
 import {BuildOrderTask} from '../../store/build_order_form/types';
 import slugify from 'slugify';
@@ -16,7 +13,7 @@ const mapState = (state: RootState) => {
     return {
         buildOrder: {
             ...state.buildOrder,
-            tasks: tasksWithAccumulations(state.buildOrder.tasks, state.buildOrder.race),
+            tasks: state.buildOrder.tasks,
         },
     };
 };
@@ -68,21 +65,17 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
             buildOrder={
                 <div>
                     {buildOrder.tasks.map((task: BuildOrderTask) =>
-                        <BuildOrderTaskComponent key={task.id} id={task.id}
-                                                 actionCode={task.actionCode}
-                                                 description={task.description}
-                                                 editMode={false}
-                                                 accumulatedFoodCost={task.accumulatedFoodCost}
-                                                 accumulatedSupply={task.accumulatedSupply}/>,
+                        <BuildOrderTaskComponent
+                            indentation={task.indentation}
+                            key={task.id} id={task.id}
+                            actionCode={task.actionCode}
+                            description={task.description}
+                            editMode={false}/>,
                     )}
                 </div>
             }
             summary={
-                <div>
-                    <BuildOrderSummary buildOrderTasks={buildOrder.tasks} race={buildOrder.race}/>
-                    {!isEmbedded ? <EditBuildOrderButton buildOrderId={buildOrder._id || 0}
-                                                         buildOrderName={buildOrder.name || ''}/> : ''}
-                </div>
+                <div/>
             }
         />;
 

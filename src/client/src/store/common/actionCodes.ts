@@ -46,6 +46,19 @@ import pitLordImg from '../../assets/images/units/PitLord.png';
 import alchemistImg from '../../assets/images/units/Alchemist.png';
 import goblinTinkerImg from '../../assets/images/units/GoblinTinker.png';
 import pandarenBrewmasterImg from '../../assets/images/units/PandarenBrewmaster.png';
+import blademasterImg from '../../assets/images/units/Blademaster.png';
+import farSeerImg from '../../assets/images/units/FarSeer.png';
+import taurenChieftainImg from '../../assets/images/units/TaurenChieftain.png';
+import shadowHunterImg from '../../assets/images/units/ShadowHunter.png';
+import gruntImg from '../../assets/images/units/Grunt.png';
+import trollHeadhunterImg from '../../assets/images/units/TrollHeadhunter.png';
+import burrowImg from '../../assets/images/buildings/OrcBurrow.png';
+import orcTowerImg from '../../assets/images/buildings/OrcTower.png';
+import altarOfStormsImg from '../../assets/images/buildings/OrcAltarofStorms.png';
+import voodooLoungeImg from '../../assets/images/buildings/OrcVoodooLounge.png';
+import warMillImg from '../../assets/images/buildings/OrcWarMill.png';
+import strongholdImg from '../../assets/images/buildings/OrcStronghold.png';
+import greatHallImg from '../../assets/images/buildings/OrcGreatHall.png';
 
 export function stringToActionCode(str: string): ActionCode {
     if (Object.keys(ActionCode).includes(str)) {
@@ -250,6 +263,7 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.BUILDING,
         race: Race.NIGHTELF,
         foodProvided: 10,
+        foodCost: -1,
         code: ActionCode.TREE_OF_LIFE,
     }],
     [ActionCode.TREE_OF_AGES, {
@@ -291,12 +305,61 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.HERO, race: Race.NIGHTELF, code: ActionCode.WARDEN,
     }],
     [ActionCode.PEON, {
-        name: 'Peon',
-        src: peonImg,
-        foodCost: 1,
-        type: ActionCodeType.UNIT,
-        race: Race.ORC,
-        code: ActionCode.PEON,
+        name: 'Peon', src: peonImg, foodCost: 1, type: ActionCodeType.UNIT, race: Race.ORC, code: ActionCode.PEON,
+    }],
+    [ActionCode.GRUNT, {
+        name: 'Grunt', src: gruntImg, foodCost: 3, type: ActionCodeType.UNIT, race: Race.ORC, code: ActionCode.GRUNT,
+        requires: [ActionCode.ORC_BARRACKS],
+    }],
+    [ActionCode.TROLL_HEADHUNTER, {
+        name: 'Troll Headhunter', src: trollHeadhunterImg, foodCost: 2, type: ActionCodeType.UNIT, race: Race.ORC,
+        code: ActionCode.TROLL_HEADHUNTER, requires: [ActionCode.ORC_BARRACKS, ActionCode.WAR_MILL],
+    }],
+    [ActionCode.BURROW, {
+        name: 'Burrow', src: burrowImg, foodProvided: 10, type: ActionCodeType.BUILDING, race: Race.ORC,
+        code: ActionCode.BURROW,
+    }],
+    [ActionCode.ALTAR_OF_STORMS, {
+        name: 'Altar of Storms', src: altarOfStormsImg, type: ActionCodeType.BUILDING, race: Race.ORC,
+        code: ActionCode.ALTAR_OF_STORMS,
+    }],
+    [ActionCode.ORC_BARRACKS, {
+        name: 'Barracks', src: barracksImg, type: ActionCodeType.BUILDING, race: Race.ORC, code: ActionCode.BURROW,
+    }],
+    [ActionCode.WAR_MILL, {
+        name: 'War Mill', src: warMillImg, type: ActionCodeType.BUILDING, race: Race.ORC, code: ActionCode.WAR_MILL,
+    }],
+    [ActionCode.VOODOO_LOUNGE, {
+        name: 'Voodoo Lounge', src: voodooLoungeImg, type: ActionCodeType.BUILDING, race: Race.ORC,
+        code: ActionCode.VOODOO_LOUNGE,
+    }],
+    [ActionCode.ORC_TOWER, {
+        name: 'Tower', src: orcTowerImg, type: ActionCodeType.BUILDING, race: Race.ORC,
+        code: ActionCode.ORC_TOWER,
+    }],
+    [ActionCode.GREAT_HALL, {
+        name: 'Great Hall', src: greatHallImg, type: ActionCodeType.BUILDING, race: Race.ORC,
+        code: ActionCode.GREAT_HALL,
+    }],
+    [ActionCode.STRONGHOLD, {
+        name: 'Stronghold', src: strongholdImg, type: ActionCodeType.UPGRADE, race: Race.ORC,
+        code: ActionCode.STRONGHOLD, description: TIER_2,
+    }],
+    [ActionCode.BLADEMASTER, {
+        name: 'Blademaster', src: blademasterImg, requires: [ActionCode.ALTAR_OF_STORMS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.ORC, code: ActionCode.BLADEMASTER,
+    }],
+    [ActionCode.FAR_SEER, {
+        name: 'Far Seer', src: farSeerImg, requires: [ActionCode.ALTAR_OF_STORMS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.ORC, code: ActionCode.FAR_SEER,
+    }],
+    [ActionCode.TAUREN_CHIEFTAIN, {
+        name: 'Tauren Chieftain', src: taurenChieftainImg, requires: [ActionCode.ALTAR_OF_STORMS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.ORC, code: ActionCode.TAUREN_CHIEFTAIN,
+    }],
+    [ActionCode.SHADOW_HUNTER, {
+        name: 'Shadow Hunter', src: shadowHunterImg, requires: [ActionCode.ALTAR_OF_STORMS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.ORC, code: ActionCode.SHADOW_HUNTER,
     }],
     [ActionCode.ACOLYTE, {
         name: 'Acolyte',

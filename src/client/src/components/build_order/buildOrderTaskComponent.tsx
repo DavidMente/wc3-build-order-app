@@ -3,25 +3,27 @@ import {ActionImage} from '../actions/actionImage';
 import RemoveBuildOrderTasks from '../build_order_form/removeBuildOrderTask';
 import EditBuildOrderTasks from '../build_order_form/editBuildOrderTask';
 import MoveBuildOrderTask, {MoveDirection} from '../build_order_form/moveBuildOrderTask';
-import foodImg from '../../assets/images/food.png';
 import {ActionCode} from '../../store/common/types';
+import IndentBuildOrderTask from '../build_order_form/indentBuildOrderTask';
 
 interface BuildOrderTaskProps {
     id: number,
+    indentation: number,
     actionCode: ActionCode,
     description: string | null,
-    accumulatedFoodCost?: number,
-    accumulatedSupply?: number,
     editMode: boolean,
 }
 
 export const BuildOrderTaskComponent: FunctionComponent<BuildOrderTaskProps> =
-    ({id, actionCode, description, editMode = false, accumulatedFoodCost = 0, accumulatedSupply = 0}) =>
-        <div className='build-order-item'>
+    ({id, indentation, actionCode, description, editMode = false}) =>
+        <div className={'build-order-item build-order-item-indent-' + indentation}>
             <div className='columns is-vcentered is-mobile'>
-                {editMode ? <div className='column is-narrow'>
+                {editMode ? <div className='column is-narrow is-paddingless'>
                     <MoveBuildOrderTask id={id} direction={MoveDirection.UP}/>
                     <MoveBuildOrderTask id={id} direction={MoveDirection.DOWN}/>
+                </div> : ''}
+                {editMode ? <div className='column is-narrow is-paddingless'>
+                    <IndentBuildOrderTask id={id} indentation={indentation}/>
                 </div> : ''}
                 <div className='column is-narrow'>
                     <ActionImage actionCode={actionCode}/>
@@ -29,11 +31,8 @@ export const BuildOrderTaskComponent: FunctionComponent<BuildOrderTaskProps> =
                 <div className='column'>
                     {editMode ? <EditBuildOrderTasks id={id} description={description}/> : description}
                 </div>
-                <div className={'column is-narrow'}>
-                    <div className={accumulatedFoodCost > accumulatedSupply ? 'has-text-danger' : ''}>
-                        {accumulatedFoodCost + '/' + accumulatedSupply} <img alt={'supply'} src={foodImg}/>
-                    </div>
-                    {editMode ? <RemoveBuildOrderTasks id={id}/> : ''}
-                </div>
+                {editMode ? <div className={'column is-narrow'}>
+                    <RemoveBuildOrderTasks id={id}/>
+                </div> : ''}
             </div>
         </div>;
