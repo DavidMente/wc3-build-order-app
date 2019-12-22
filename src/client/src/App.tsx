@@ -9,6 +9,10 @@ import BuildOrderComponent from './components/build_order/buildOrderComponent';
 import {ConnectedRouter} from 'connected-react-router';
 import {history} from './store';
 import Footer from './components/footer';
+import {withTracker} from './withTracker';
+import GoogleAnalytics from 'react-ga';
+
+GoogleAnalytics.initialize(process.env.GOOGLE_ANALYTICS || 'UA-0000000-0');
 
 class App extends Component {
     public render() {
@@ -22,12 +26,12 @@ class App extends Component {
                                 <div className={'column is-10'}>
                                     <div className={'main-section'}>
                                         <Switch>
-                                            <Route exact path={'/'} component={BuildOrdersComponent}/>
-                                            <Route exact path={'/create'} component={BuildOrderForm}/>
+                                            <Route exact path={'/'} component={withTracker(BuildOrdersComponent)}/>
+                                            <Route exact path={'/create'} component={withTracker(BuildOrderForm)}/>
                                             <Route exact path={'/build_order/:id/:name/edit'}
-                                                   component={BuildOrderForm}/>
+                                                   component={withTracker(BuildOrderForm)}/>
                                             <Route exact path={'/build_order/:id/:name'}
-                                                   component={BuildOrderComponent}/>
+                                                   component={withTracker(BuildOrderComponent)}/>
                                         </Switch>
                                     </div>
                                 </div>

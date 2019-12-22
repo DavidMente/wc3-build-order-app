@@ -61,7 +61,7 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
                     {!isEmbedded ? <div className={'box is-hidden-mobile'}>
                         <h2 className={'title is-5'}><i className='fas fa-code'/> Embed</h2>
                         <textarea value={embeddingCode} className={'textarea has-background-light embedding-box'}
-                                  onFocus={handleFocus} rows={3}/>
+                                  onFocus={handleFocus} rows={3} readOnly={true}/>
                     </div> : ''}
                 </div>
             }
