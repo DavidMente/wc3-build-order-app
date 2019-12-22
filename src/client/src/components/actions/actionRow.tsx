@@ -26,9 +26,20 @@ function getAvailableActionCodes(allActionCodes: ActionCode[], selectedActionCod
     });
 }
 
-export const ActionRow: FunctionComponent<ActionRowProps> = ({selectedActionCodes, race, type}) =>
-    <div>
+export const ActionRow: FunctionComponent<ActionRowProps> = ({selectedActionCodes, race, type}) => {
+
+    const hasAltar = selectedActionCodes
+        .some((code) => [ActionCode.ALTAR_OF_ELDERS, ActionCode.ALTAR_OF_KINGS].includes(code));
+
+    return <div>
         {getAvailableActionCodes(getActionCodesByRaceAndType(race, type), selectedActionCodes).map((actionCode) =>
-            <ActionGridItem
-                key={actionCode} actionCode={actionCode}/>)}
+            <ActionGridItem key={actionCode} actionCode={actionCode}/>
+        )}
+        {/* Neutral Heroes */}
+        {type === ActionCodeType.HERO && hasAltar ?
+            getAvailableActionCodes(getActionCodesByRaceAndType(Race.NEUTRAL, ActionCodeType.HERO), selectedActionCodes)
+                .map((actionCode) =>
+                    <ActionGridItem key={actionCode} actionCode={actionCode}/>
+                ) : ''}
     </div>;
+};

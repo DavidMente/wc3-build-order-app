@@ -32,6 +32,7 @@ export enum Race {
     HUMAN = 'HUMAN',
     ORC = 'ORC',
     UNDEAD = 'UNDEAD',
+    NEUTRAL = 'NEUTRAL',
 }
 
 export function stringToRace(str: string): Race | null {
@@ -45,6 +46,13 @@ export function stringToRace(str: string): Race | null {
 
 export enum ActionCode {
     CUSTOM = 'CUSTOM',
+    PANDAREN_BREWMASTER = 'PANDAREN_BREWMASTER',
+    NAGA_SEA_WITCH = 'NAGA_SEA_WITCH',
+    DARK_RANGER = 'DARK_RANGER',
+    PIT_LORD = 'PIT_LORD',
+    FIRELORD = 'FIRE_LORD',
+    ALCHEMIST = 'ALCHEMIST',
+    GOBLIN_TINKER = 'GOBLIN_TINKER',
     PEASANT = 'PEASANT',
     FOOTMAN = 'FOOTMAN',
     RIFLEMAN = 'RIFLEMAN',

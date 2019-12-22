@@ -39,6 +39,13 @@ import demonHunterImg from '../../assets/images/units/DemonHunter.png';
 import keeperOfTheGroveImg from '../../assets/images/units/KeeperoftheGrove.png';
 import priestessOfTheMoonImg from '../../assets/images/units/PriestessoftheMoon.png';
 import wardenImg from '../../assets/images/units/Warden.png';
+import firelordImg from '../../assets/images/units/Firelord.png';
+import nagaSeaWitchImg from '../../assets/images/units/NagaSeaWitch.png';
+import darkRangerImg from '../../assets/images/units/DarkRanger.png';
+import pitLordImg from '../../assets/images/units/PitLord.png';
+import alchemistImg from '../../assets/images/units/Alchemist.png';
+import goblinTinkerImg from '../../assets/images/units/GoblinTinker.png';
+import pandarenBrewmasterImg from '../../assets/images/units/PandarenBrewmaster.png';
 
 export function stringToActionCode(str: string): ActionCode {
     if (Object.keys(ActionCode).includes(str)) {
@@ -314,6 +321,34 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.UNIT,
         race: Race.UNDEAD,
         code: ActionCode.CRYPT,
+    }],
+    [ActionCode.PANDAREN_BREWMASTER, {
+        name: 'Pandaren Brewmaster', src: pandarenBrewmasterImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.PANDAREN_BREWMASTER,
+    }],
+    [ActionCode.NAGA_SEA_WITCH, {
+        name: 'Naga Sea Witch', src: nagaSeaWitchImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.NAGA_SEA_WITCH,
+    }],
+    [ActionCode.PIT_LORD, {
+        name: 'Pit Lord', src: pitLordImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.PIT_LORD,
+    }],
+    [ActionCode.ALCHEMIST, {
+        name: 'Alchemist', src: alchemistImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.ALCHEMIST,
+    }],
+    [ActionCode.GOBLIN_TINKER, {
+        name: 'Goblin Tinker', src: goblinTinkerImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.GOBLIN_TINKER,
+    }],
+    [ActionCode.DARK_RANGER, {
+        name: 'Dark Ranger', src: darkRangerImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.DARK_RANGER,
+    }],
+    [ActionCode.FIRELORD, {
+        name: 'Firelord', src: firelordImg, foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NEUTRAL, code: ActionCode.FIRELORD,
     }],
 ]);
 
