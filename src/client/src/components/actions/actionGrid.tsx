@@ -34,6 +34,9 @@ const ActionGrid: FunctionComponent<ActionGridProps> = ({selectedActionCodes, ra
         <ActionRow race={race} type={ActionCodeType.UPGRADE} selectedActionCodes={selectedActionCodes}/>
         <ActionRow race={race} type={ActionCodeType.RESEARCH} selectedActionCodes={selectedActionCodes}/>
         <div>
+            <ActionGridItem actionCode={ActionCode.GOLD}/>
+            <ActionGridItem actionCode={ActionCode.LUMBER}/>
+            <ActionGridItem actionCode={ActionCode.ATTACK}/>
             <ActionGridItem actionCode={ActionCode.CUSTOM}/>
         </div>
     </div> : <span/>;

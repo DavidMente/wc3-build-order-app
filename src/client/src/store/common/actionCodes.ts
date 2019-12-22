@@ -10,6 +10,7 @@ import peonImg from '../../assets/images/units/peon.png';
 import acolyteImg from '../../assets/images/units/acolyte.png';
 import farmImg from '../../assets/images/buildings/HumanFarm.png';
 import barracksImg from '../../assets/images/buildings/HumanBarracks.png';
+import orcBarracksImg from '../../assets/images/buildings/OrcBarracks.png';
 import blacksmithImg from '../../assets/images/buildings/HumanBlacksmith.png';
 import altarOfKingsImg from '../../assets/images/buildings/HumanAltarofKings.png';
 import footmanImg from '../../assets/images/units/footman.png';
@@ -70,6 +71,9 @@ import deathKnightImg from '../../assets/images/units/DeathKnight.png';
 import lichImg from '../../assets/images/units/Lich.png';
 import dreadLordImg from '../../assets/images/units/DreadLord.png';
 import cryptLordImg from '../../assets/images/units/CryptLord.png';
+import attackImg from '../../assets/images/AttackCommand.png';
+import lumberImg from '../../assets/images/BundleofLumber.png';
+import goldImg from '../../assets/images/ChestofGold.png';
 
 export function stringToActionCode(str: string): ActionCode {
     if (Object.keys(ActionCode).includes(str)) {
@@ -84,6 +88,9 @@ const TIER_2 = 'Tech to Tier 2';
 
 export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
     [ActionCode.CUSTOM, {code: ActionCode.CUSTOM, name: 'Custom', src: customImg}],
+    [ActionCode.ATTACK, {code: ActionCode.ATTACK, name: 'Attack', src: attackImg, description: 'Attack'}],
+    [ActionCode.GOLD, {code: ActionCode.GOLD, name: 'Gold', src: goldImg, description: 'Gold'}],
+    [ActionCode.LUMBER, {code: ActionCode.LUMBER, name: 'Lumber', src: lumberImg, description: 'Lumber'}],
     [ActionCode.DEFEND, {
         name: 'Defend', src: defendImg, requires: [ActionCode.BARRACKS], type: ActionCodeType.RESEARCH,
         race: Race.HUMAN, code: ActionCode.DEFEND,
@@ -328,7 +335,7 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         code: ActionCode.ALTAR_OF_STORMS,
     }],
     [ActionCode.ORC_BARRACKS, {
-        name: 'Barracks', src: barracksImg, type: ActionCodeType.BUILDING, race: Race.ORC, code: ActionCode.BURROW,
+        name: 'Barracks', src: orcBarracksImg, type: ActionCodeType.BUILDING, race: Race.ORC, code: ActionCode.BURROW,
     }],
     [ActionCode.WAR_MILL, {
         name: 'War Mill', src: warMillImg, type: ActionCodeType.BUILDING, race: Race.ORC, code: ActionCode.WAR_MILL,

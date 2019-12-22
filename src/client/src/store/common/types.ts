@@ -46,6 +46,9 @@ export function stringToRace(str: string): Race | null {
 
 export enum ActionCode {
     CUSTOM = 'CUSTOM',
+    ATTACK = 'ATTACK',
+    GOLD = 'GOLD',
+    LUMBER = 'LUMBER',
     PANDAREN_BREWMASTER = 'PANDAREN_BREWMASTER',
     NAGA_SEA_WITCH = 'NAGA_SEA_WITCH',
     DARK_RANGER = 'DARK_RANGER',
