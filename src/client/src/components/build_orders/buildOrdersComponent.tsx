@@ -31,7 +31,7 @@ const BuildOrdersComponent: FunctionComponent<ConnectedProps<typeof connector>> 
         }, [fetchData, params]);
 
         return <div>
-            <div className={'columns is-mobile'}>
+            <div className={'columns is-mobile is-clipped'}>
                 <div className={'column is-narrow'}>
                     <BuildOrdersSearch/>
                 </div>

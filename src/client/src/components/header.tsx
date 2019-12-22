@@ -8,7 +8,7 @@ const Header: FunctionComponent<RouteComponentProps<any>> = ({location}) => {
     return !isEmbedded ? <nav className='navbar' role='navigation' aria-label='main navigation'>
         <div className='navbar-brand'>
             <Link to={'/'} className='navbar-item'>
-                Browse
+                Browse Build Orders
             </Link>
             <Link to={'/create'} className='navbar-item'>
                 New Build Order
