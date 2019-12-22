@@ -56,7 +56,7 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
                     <div className={'box'}>
                         <BuildOrderHeader name={buildOrder.name} race={buildOrder.race} author={buildOrder.author}
                                           views={buildOrder.views}/>
-                        <p className={'paragraph'}>{buildOrder.description}</p>
+                        <p className={'paragraph text-with-linebreaks'}>{buildOrder.description}</p>
                     </div>
                     {!isEmbedded ? <div className={'box is-hidden-mobile'}>
                         <h2 className={'title is-5'}><i className='fas fa-code'/> Embed</h2>

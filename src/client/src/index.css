@@ -78,3 +78,7 @@
 .edit-info {
     padding: 5px;
 }
+
+.text-with-linebreaks {
+    white-space: pre-line;
+}

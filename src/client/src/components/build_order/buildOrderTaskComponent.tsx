@@ -27,7 +27,7 @@ export const BuildOrderTaskComponent: FunctionComponent<BuildOrderTaskProps> =
                 <div className='column is-narrow'>
                     <ActionImage actionCode={actionCode}/>
                 </div>
-                <div className='column'>
+                <div className='column text-with-linebreaks'>
                     {editMode ? <EditBuildOrderTasks id={id} description={description}/> : description}
                 </div>
                 {editMode ? <div className={'column is-narrow'}>
