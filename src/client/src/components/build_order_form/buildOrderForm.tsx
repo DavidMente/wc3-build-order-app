@@ -58,13 +58,15 @@ const BuildOrderForm: FunctionComponent<BuildOrderFormProps> = ({buildOrder, fet
         }
         buildOrder={
             <div>
-                {buildOrder.tasks.map((task) =>
+                {buildOrder.tasks.map((task, index) =>
                     <BuildOrderTaskComponent
                         indentation={task.indentation}
                         key={task.id} id={task.id}
                         actionCode={task.actionCode}
                         description={task.description}
                         editMode={true}
+                        isFirst={index === 0}
+                        isLast={index === buildOrder.tasks.length - 1}
                     />)}
             </div>
         }

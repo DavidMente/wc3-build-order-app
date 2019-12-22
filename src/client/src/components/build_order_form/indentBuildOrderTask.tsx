@@ -10,6 +10,12 @@ interface IndentBuildOrderTaskProps {
     addIndent: (id: number) => void,
     decreaseIndent: (id: number) => void,
     indentation: number,
+    direction: IndentDirection,
+}
+
+export enum IndentDirection {
+    LEFT = 'LEFT',
+    RIGHT = 'RIGHT',
 }
 
 const mapDispatch = {
@@ -18,14 +24,14 @@ const mapDispatch = {
 };
 
 const IndentBuildOrderTask: FunctionComponent<IndentBuildOrderTaskProps> =
-    ({id, addIndent, decreaseIndent, indentation}) =>
+    ({id, addIndent, decreaseIndent, indentation, direction}) =>
         <div>
-            {indentation < 3 ?
-                <button className='button is-block is-small' onClick={() => addIndent(id)} title={'add indent'}>
+            {indentation < 3 && direction === IndentDirection.RIGHT ?
+                <button className='button is-small' onClick={() => addIndent(id)} title={'add indent'}>
                     <i className='fas fa-arrow-right'/>
                 </button> : ''}
-            {indentation > 0 ?
-                <button className='button is-block is-small' onClick={() => decreaseIndent(id)}
+            {indentation > 0 && direction === IndentDirection.LEFT ?
+                <button className='button is-small' onClick={() => decreaseIndent(id)}
                         title={'decrease indent'}>
                     <i className='fas fa-arrow-left'/>
                 </button> : ''}

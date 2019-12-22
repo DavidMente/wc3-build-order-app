@@ -5,9 +5,9 @@ import {connect, ConnectedProps} from 'react-redux';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {fetchBuildOrder} from '../../store/build_order/actions';
 import {BuildOrderLayout} from './buildOrderLayout';
-import {BuildOrderTask} from '../../store/build_order_form/types';
 import slugify from 'slugify';
 import {BuildOrderHeader} from './buildOrderHeader';
+import EditBuildOrderButton from './editBuildOrderButton';
 
 const mapState = (state: RootState) => {
     return {
@@ -64,18 +64,24 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
             }
             buildOrder={
                 <div>
-                    {buildOrder.tasks.map((task: BuildOrderTask) =>
+                    {buildOrder.tasks.map((task, index) =>
                         <BuildOrderTaskComponent
                             indentation={task.indentation}
                             key={task.id} id={task.id}
                             actionCode={task.actionCode}
                             description={task.description}
-                            editMode={false}/>,
+                            editMode={false}
+                            isFirst={index === 0}
+                            isLast={index === buildOrder.tasks.length - 1}
+                        />,
                     )}
                 </div>
             }
             summary={
-                <div/>
+                <div>
+                    {!isEmbedded ? <EditBuildOrderButton buildOrderId={buildOrder._id || 0}
+                                                         buildOrderName={buildOrder.name || ''}/> : ''}
+                </div>
             }
         />;
 

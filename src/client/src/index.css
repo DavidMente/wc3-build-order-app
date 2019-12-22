@@ -26,19 +26,25 @@
 }
 
 .build-order-item:last-child {
-    border: none;
+    border-bottom: none;
 }
 
 .build-order-item-indent-1 {
-    padding-left: 25px;
+    padding-left: 24px;
+    margin-left: 24px;
+    border-left: 2px solid whitesmoke;
 }
 
 .build-order-item-indent-2 {
-    padding-left: 50px;
+    padding-left: 24px;
+    margin-left: 74px;
+    border-left: 2px solid whitesmoke;
 }
 
 .build-order-item-indent-3 {
-    padding-left: 75px;
+    padding-left: 24px;
+    margin-left: 124px;
+    border-left: 2px solid whitesmoke;
 }
 
 .action-image-container {
