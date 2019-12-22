@@ -59,6 +59,17 @@ import voodooLoungeImg from '../../assets/images/buildings/OrcVoodooLounge.png';
 import warMillImg from '../../assets/images/buildings/OrcWarMill.png';
 import strongholdImg from '../../assets/images/buildings/OrcStronghold.png';
 import greatHallImg from '../../assets/images/buildings/OrcGreatHall.png';
+import cryptFiendImg from '../../assets/images/units/CryptFiend.png';
+import graveyardImg from '../../assets/images/buildings/UndeadGraveYard.png';
+import zigguratImg from '../../assets/images/buildings/UndeadZiggurat.png';
+import altarOfDarknessImg from '../../assets/images/buildings/UndeadAltarofDarkness.png';
+import necropolisImg from '../../assets/images/buildings/UndeadNecropolis.png';
+import hallOfTheDeadImg from '../../assets/images/buildings/UndeadHalloftheDead.png';
+import tombOfRelicsImg from '../../assets/images/buildings/UndeadTombofRelics.png';
+import deathKnightImg from '../../assets/images/units/DeathKnight.png';
+import lichImg from '../../assets/images/units/Lich.png';
+import dreadLordImg from '../../assets/images/units/DreadLord.png';
+import cryptLordImg from '../../assets/images/units/CryptLord.png';
 
 export function stringToActionCode(str: string): ActionCode {
     if (Object.keys(ActionCode).includes(str)) {
@@ -267,19 +278,12 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         code: ActionCode.TREE_OF_LIFE,
     }],
     [ActionCode.TREE_OF_AGES, {
-        name: 'Tree of Ages',
-        src: treeOfAgesImg,
-        type: ActionCodeType.UPGRADE,
-        race: Race.NIGHTELF,
-        code: ActionCode.TREE_OF_AGES,
-        description: TIER_2,
+        name: 'Tree of Ages', src: treeOfAgesImg, type: ActionCodeType.UPGRADE, race: Race.NIGHTELF,
+        code: ActionCode.TREE_OF_AGES, description: TIER_2,
     }],
     [ActionCode.ANCIENT_PROTECTOR, {
-        name: 'Ancient Protector',
-        src: ancientProtectorImg,
-        type: ActionCodeType.BUILDING,
-        race: Race.NIGHTELF,
-        code: ActionCode.ANCIENT_PROTECTOR,
+        name: 'Ancient Protector', src: ancientProtectorImg, type: ActionCodeType.BUILDING, race: Race.NIGHTELF,
+        code: ActionCode.ANCIENT_PROTECTOR, requires: [ActionCode.HUNTERS_HALL]
     }],
     [ActionCode.ANCIENT_OF_WONDERS, {
         name: 'Ancient of Wonders',
@@ -362,28 +366,59 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.HERO, race: Race.ORC, code: ActionCode.SHADOW_HUNTER,
     }],
     [ActionCode.ACOLYTE, {
-        name: 'Acolyte',
-        src: acolyteImg,
-        foodCost: 1,
-        type: ActionCodeType.UNIT,
-        race: Race.UNDEAD,
+        name: 'Acolyte', src: acolyteImg, foodCost: 1, type: ActionCodeType.UNIT, race: Race.UNDEAD,
         code: ActionCode.ACOLYTE,
     }],
     [ActionCode.GHOUL, {
-        name: 'Ghoul',
-        src: ghoulImg,
-        foodCost: 2,
-        requires: [ActionCode.CRYPT],
-        type: ActionCodeType.BUILDING,
-        race: Race.UNDEAD,
-        code: ActionCode.GHOUL,
+        name: 'Ghoul', src: ghoulImg, foodCost: 2, requires: [ActionCode.CRYPT], type: ActionCodeType.UNIT,
+        race: Race.UNDEAD, code: ActionCode.GHOUL,
+    }],
+    [ActionCode.CRYPT_FIEND, {
+        name: 'Crypt Fiend', src: cryptFiendImg, foodCost: 3, requires: [ActionCode.CRYPT, ActionCode.GRAVEYARD],
+        type: ActionCodeType.UNIT, race: Race.UNDEAD, code: ActionCode.GRAVEYARD,
     }],
     [ActionCode.CRYPT, {
-        name: 'Crypt',
-        src: cryptImg,
-        type: ActionCodeType.UNIT,
-        race: Race.UNDEAD,
-        code: ActionCode.CRYPT,
+        name: 'Crypt', src: cryptImg, type: ActionCodeType.UNIT, race: Race.UNDEAD, code: ActionCode.CRYPT,
+    }],
+    [ActionCode.GRAVEYARD, {
+        name: 'Graveyard', src: graveyardImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.GRAVEYARD,
+    }],
+    [ActionCode.ALTAR_OF_DARKNESS, {
+        name: 'Altar of Darkness', src: altarOfDarknessImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.ALTAR_OF_DARKNESS,
+    }],
+    [ActionCode.NECROPOLIS, {
+        name: 'Necropolis', src: necropolisImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.NECROPOLIS,
+    }],
+    [ActionCode.HALL_OF_THE_DEAD, {
+        name: 'Hall of the Dead', src: hallOfTheDeadImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.HALL_OF_THE_DEAD, description: TIER_2,
+    }],
+    [ActionCode.TOMB_OF_RELICS, {
+        name: 'Tomb of Relics', src: tombOfRelicsImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.TOMB_OF_RELICS,
+    }],
+    [ActionCode.ZIGGURAT, {
+        name: 'Ziggurat', src: zigguratImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        code: ActionCode.ZIGGURAT, foodProvided: 10,
+    }],
+    [ActionCode.DEATH_KNIGHT, {
+        name: 'Death Knight', src: deathKnightImg, foodCost: 5, requires: [ActionCode.ALTAR_OF_DARKNESS],
+        type: ActionCodeType.HERO, race: Race.UNDEAD, code: ActionCode.DEATH_KNIGHT,
+    }],
+    [ActionCode.LICH, {
+        name: 'Lich', src: lichImg, foodCost: 5, requires: [ActionCode.ALTAR_OF_DARKNESS],
+        type: ActionCodeType.HERO, race: Race.UNDEAD, code: ActionCode.LICH,
+    }],
+    [ActionCode.DREAD_LORD, {
+        name: 'Dread Lord', src: dreadLordImg, foodCost: 5, requires: [ActionCode.ALTAR_OF_DARKNESS],
+        type: ActionCodeType.HERO, race: Race.UNDEAD, code: ActionCode.DREAD_LORD,
+    }],
+    [ActionCode.CRYPT_LORD, {
+        name: 'Crypt Lord', src: cryptLordImg, foodCost: 5, requires: [ActionCode.ALTAR_OF_DARKNESS],
+        type: ActionCodeType.HERO, race: Race.UNDEAD, code: ActionCode.CRYPT_LORD,
     }],
     [ActionCode.PANDAREN_BREWMASTER, {
         name: 'Pandaren Brewmaster', src: pandarenBrewmasterImg, foodCost: 5,

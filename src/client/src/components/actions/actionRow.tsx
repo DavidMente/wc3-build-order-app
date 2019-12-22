@@ -30,7 +30,7 @@ export const ActionRow: FunctionComponent<ActionRowProps> = ({selectedActionCode
 
     const hasAltar = selectedActionCodes
         .some((code) => [ActionCode.ALTAR_OF_ELDERS, ActionCode.ALTAR_OF_KINGS,
-            ActionCode.ALTAR_OF_STORMS].includes(code));
+            ActionCode.ALTAR_OF_STORMS, ActionCode.ALTAR_OF_DARKNESS].includes(code));
 
     return <div>
         {getAvailableActionCodes(getActionCodesByRaceAndType(race, type), selectedActionCodes).map((actionCode) =>

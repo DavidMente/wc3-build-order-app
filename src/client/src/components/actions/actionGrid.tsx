@@ -28,9 +28,9 @@ const ActionGrid: FunctionComponent<ActionGridProps> = ({selectedActionCodes, ra
     return race !== null ? <div className='box'>
         <label className='label'>Select an action:</label>
         <ActionRow race={race} type={ActionCodeType.UNIT} selectedActionCodes={selectedActionCodes}/>
+        <ActionRow race={race} type={ActionCodeType.BUILDING} selectedActionCodes={selectedActionCodes}/>
         {!hasPickedHero ?
             <ActionRow race={race} type={ActionCodeType.HERO} selectedActionCodes={selectedActionCodes}/> : ''}
-        <ActionRow race={race} type={ActionCodeType.BUILDING} selectedActionCodes={selectedActionCodes}/>
         <ActionRow race={race} type={ActionCodeType.UPGRADE} selectedActionCodes={selectedActionCodes}/>
         <ActionRow race={race} type={ActionCodeType.RESEARCH} selectedActionCodes={selectedActionCodes}/>
         <div>
