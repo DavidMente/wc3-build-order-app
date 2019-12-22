@@ -16,8 +16,7 @@ class App extends Component {
 
     constructor(props: Readonly<any>) {
         super(props);
-        GoogleAnalytics.initialize(process.env.GOOGLE_ANALYTICS || 'UA-0000000-0',
-            {testMode: process.env.GOOGLE_ANALYTICS === undefined});
+        GoogleAnalytics.initialize(process.env.REACT_APP_GA || 'UA-0000000-0');
     }
 
     public render() {
