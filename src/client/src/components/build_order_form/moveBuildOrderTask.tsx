@@ -3,8 +3,8 @@ import {moveBuildOrderTaskDown, moveBuildOrderTaskUp} from '../../store/build_or
 import {connect} from 'react-redux';
 
 export enum MoveDirection {
-    UP = 'UP',
-    DOWN = 'DOWN',
+    UP = 'up',
+    DOWN = 'down',
 }
 
 interface MoveBuildOrderTaskProps {
@@ -25,7 +25,8 @@ const mapDispatch = {
 };
 
 const MoveBuildOrderTask: FunctionComponent<MoveBuildOrderTaskProps> = ({id, moveBuildOrderTask, direction}) =>
-    <button className='button is-block is-small' onClick={() => moveBuildOrderTask(id, direction)}>
+    <button className='button is-block is-small' onClick={() => moveBuildOrderTask(id, direction)}
+            title={'move ' + direction}>
         {direction === MoveDirection.UP ? <i className='fas fa-arrow-up'/> : <i className='fas fa-arrow-down'/>}
     </button>;
 

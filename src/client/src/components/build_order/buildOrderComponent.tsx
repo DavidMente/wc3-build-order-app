@@ -39,8 +39,9 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
         }, [match.params.id, fetchData]);
 
         const isEmbedded = new URLSearchParams(location.search).get('embedded') === '1';
-        const embeddingUrl = [process.env.REACT_APP_BASE_URL, 'build_order', buildOrder._id,
-            slugify(buildOrder.name || '') + '?embedded=1'].join('/');
+        const url = [process.env.REACT_APP_BASE_URL, 'build_order', buildOrder._id,
+            slugify(buildOrder.name || '')].join('/');
+        const embeddingUrl = url + '?embedded=1';
         const embeddingCode = '<iframe src="' + embeddingUrl + '" width="600" height="700" style="border: 0"/>';
         const handleFocus = (event: React.FocusEvent<HTMLTextAreaElement>) => {
             event.target.select();
@@ -80,7 +81,8 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
             summary={
                 <div>
                     {!isEmbedded ? <EditBuildOrderButton buildOrderId={buildOrder._id || 0}
-                                                         buildOrderName={buildOrder.name || ''}/> : ''}
+                                                         buildOrderName={buildOrder.name || ''}/> :
+                        <a href={url}>Open in website</a>}
                 </div>
             }
         />;
