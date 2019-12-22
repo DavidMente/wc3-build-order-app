@@ -1,4 +1,4 @@
-import {ActionCode, Race} from './types';
+import {ActionCode, ActionCodeDetails, ActionCodeType, Race} from './types';
 import peasantImg from '../../assets/images/units/Peasant.png';
 import defendImg from '../../assets/images/research/Defend.png';
 import archmageImg from '../../assets/images/units/Archmage.png';
@@ -7,7 +7,6 @@ import paladinImg from '../../assets/images/units/Paladin.png';
 import bloodMageImg from '../../assets/images/units/BloodMage.png';
 import riflemanImg from '../../assets/images/units/Rifleman.png';
 import peonImg from '../../assets/images/units/Peon.png';
-import wispImg from '../../assets/images/units/Wisp.png';
 import acolyteImg from '../../assets/images/units/Acolyte.png';
 import farmImg from '../../assets/images/buildings/HumanFarm.png';
 import barracksImg from '../../assets/images/buildings/HumanBarracks.png';
@@ -24,6 +23,22 @@ import guardTowerImg from '../../assets/images/buildings/HumanGuardTower.png';
 import arcaneVaultImg from '../../assets/images/buildings/HumanArcaneVault.png';
 import lumberMillImg from '../../assets/images/buildings/HumanLumberMill.png';
 import customImg from '../../assets/images/QuestionMark.png';
+import wispImg from '../../assets/images/units/Wisp.png';
+import archerImg from '../../assets/images/units/Archer.png';
+import huntressImg from '../../assets/images/units/Huntress.png';
+import glaiveThrowerImg from '../../assets/images/units/GlaiveThrower.png';
+import ancientOfWarImg from '../../assets/images/buildings/NightElfAncientofWar.png';
+import huntersHallImg from '../../assets/images/buildings/NightElfHuntersHall.png';
+import moonWellImg from '../../assets/images/buildings/NightElfMoonWell.png';
+import altarOfEldersImg from '../../assets/images/buildings/NightElfAltarofElders.png';
+import treeOfLifeImg from '../../assets/images/buildings/NightElfTreeofLife.png';
+import treeOfAgesImg from '../../assets/images/buildings/NightElfTreeofAges.png';
+import ancientOfWondersImg from '../../assets/images/buildings/NightElfAncientofWonders.png';
+import ancientProtectorImg from '../../assets/images/buildings/NightElfAncientProtector.png';
+import demonHunterImg from '../../assets/images/units/DemonHunter.png';
+import keeperOfTheGroveImg from '../../assets/images/units/KeeperoftheGrove.png';
+import priestessOfTheMoonImg from '../../assets/images/units/PriestessoftheMoon.png';
+import wardenImg from '../../assets/images/units/Warden.png';
 
 export function stringToActionCode(str: string): ActionCode {
     if (Object.keys(ActionCode).includes(str)) {
@@ -34,25 +49,7 @@ export function stringToActionCode(str: string): ActionCode {
     }
 }
 
-export enum ActionCodeType {
-    BUILDING = 'Build',
-    UNIT = 'Train',
-    HERO = 'Recruit',
-    UPGRADE = 'Upgrade',
-    RESEARCH = 'Research',
-}
-
-export interface ActionCodeDetails {
-    name: string,
-    src: string,
-    code: ActionCode,
-    type?: ActionCodeType,
-    requires?: ActionCode[],
-    foodCost?: number,
-    foodProvided?: number,
-    description?: string,
-    race?: Race,
-}
+const TIER_2 = 'Tech to Tier 2';
 
 export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
     [ActionCode.CUSTOM, {code: ActionCode.CUSTOM, name: 'Custom', src: customImg}],
@@ -171,7 +168,7 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         name: 'Keep',
         src: keepImg,
         type: ActionCodeType.UPGRADE,
-        description: 'Tech to Tier 2',
+        description: TIER_2,
         race: Race.HUMAN,
         code: ActionCode.KEEP,
     }],
@@ -182,6 +179,109 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.UNIT,
         race: Race.NIGHTELF,
         code: ActionCode.WISP,
+    }],
+    [ActionCode.ARCHER, {
+        name: 'Archer',
+        src: archerImg,
+        foodCost: 2,
+        type: ActionCodeType.UNIT,
+        race: Race.NIGHTELF,
+        code: ActionCode.ARCHER,
+        requires: [ActionCode.ANCIENT_OF_WAR],
+    }],
+    [ActionCode.HUNTRESS, {
+        name: 'Huntress',
+        src: huntressImg,
+        foodCost: 3,
+        type: ActionCodeType.UNIT,
+        race: Race.NIGHTELF,
+        code: ActionCode.HUNTRESS,
+        requires: [ActionCode.ANCIENT_OF_WAR, ActionCode.HUNTERS_HALL],
+    }],
+    [ActionCode.GLAIVE_THROWER, {
+        name: 'Glaive Thrower',
+        src: glaiveThrowerImg,
+        foodCost: 3,
+        type: ActionCodeType.UNIT,
+        race: Race.NIGHTELF,
+        code: ActionCode.GLAIVE_THROWER,
+        requires: [ActionCode.ANCIENT_OF_WAR, ActionCode.HUNTERS_HALL],
+    }],
+    [ActionCode.MOON_WELL, {
+        name: 'Moon Well',
+        src: moonWellImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        foodProvided: 10,
+        code: ActionCode.MOON_WELL,
+    }],
+    [ActionCode.ALTAR_OF_ELDERS, {
+        name: 'Altar of Elders',
+        src: altarOfEldersImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        code: ActionCode.ALTAR_OF_ELDERS,
+    }],
+    [ActionCode.ANCIENT_OF_WAR, {
+        name: 'Ancient of War',
+        src: ancientOfWarImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        foodCost: -1,
+        code: ActionCode.ANCIENT_OF_WAR,
+    }],
+    [ActionCode.HUNTERS_HALL, {
+        name: 'Hunters Hall',
+        src: huntersHallImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        code: ActionCode.HUNTERS_HALL,
+    }],
+    [ActionCode.TREE_OF_LIFE, {
+        name: 'Tree of Life',
+        src: treeOfLifeImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        foodProvided: 10,
+        code: ActionCode.TREE_OF_LIFE,
+    }],
+    [ActionCode.TREE_OF_AGES, {
+        name: 'Tree of Ages',
+        src: treeOfAgesImg,
+        type: ActionCodeType.UPGRADE,
+        race: Race.NIGHTELF,
+        code: ActionCode.TREE_OF_AGES,
+        description: TIER_2,
+    }],
+    [ActionCode.ANCIENT_PROTECTOR, {
+        name: 'Ancient Protector',
+        src: ancientProtectorImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        code: ActionCode.ANCIENT_PROTECTOR,
+    }],
+    [ActionCode.ANCIENT_OF_WONDERS, {
+        name: 'Ancient of Wonders',
+        src: ancientOfWondersImg,
+        type: ActionCodeType.BUILDING,
+        race: Race.NIGHTELF,
+        code: ActionCode.ANCIENT_OF_WONDERS,
+    }],
+    [ActionCode.DEMON_HUNTER, {
+        name: 'Demon Hunter', src: demonHunterImg, requires: [ActionCode.ALTAR_OF_ELDERS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NIGHTELF, code: ActionCode.DEMON_HUNTER,
+    }],
+    [ActionCode.KEEPER_OF_THE_GROVE, {
+        name: 'Keeper of the Grove', src: keeperOfTheGroveImg, requires: [ActionCode.ALTAR_OF_ELDERS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NIGHTELF, code: ActionCode.KEEPER_OF_THE_GROVE,
+    }],
+    [ActionCode.PRIESTESS_OF_THE_MOON, {
+        name: 'Priestess of the Moon', src: priestessOfTheMoonImg, requires: [ActionCode.ALTAR_OF_ELDERS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NIGHTELF, code: ActionCode.PRIESTESS_OF_THE_MOON,
+    }],
+    [ActionCode.WARDEN, {
+        name: 'Warden', src: wardenImg, requires: [ActionCode.ALTAR_OF_ELDERS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.NIGHTELF, code: ActionCode.WARDEN,
     }],
     [ActionCode.PEON, {
         name: 'Peon',
@@ -230,7 +330,8 @@ export const getStartingActionCodesByRace = (race: Race | null) => {
             return [ActionCode.TOWN_HALL, ActionCode.PEASANT, ActionCode.PEASANT, ActionCode.PEASANT,
                 ActionCode.PEASANT, ActionCode.PEASANT];
         case Race.NIGHTELF:
-            return [ActionCode.WISP, ActionCode.WISP, ActionCode.WISP, ActionCode.WISP, ActionCode.WISP];
+            return [ActionCode.TREE_OF_LIFE, ActionCode.WISP, ActionCode.WISP, ActionCode.WISP, ActionCode.WISP,
+                ActionCode.WISP];
         default:
             return [];
     }

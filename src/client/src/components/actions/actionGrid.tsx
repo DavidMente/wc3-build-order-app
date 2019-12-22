@@ -1,10 +1,10 @@
 import React, {FunctionComponent} from 'react';
 import {connect} from 'react-redux';
 import {RootState} from '../../store';
-import {ActionCode, Race} from '../../store/common/types';
+import {ActionCode, ActionCodeDetails, ActionCodeType, Race} from '../../store/common/types';
 import {ActionRow} from './actionRow';
 import ActionGridItem from './actionGridItem';
-import {ActionCodeDetails, ActionCodeType, mapActionCodeToDetails} from '../../store/common/actionCodes';
+import {mapActionCodeToDetails} from '../../store/common/actionCodes';
 
 interface ActionGridProps {
     race: Race | null,

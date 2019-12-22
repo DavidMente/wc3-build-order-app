@@ -44,6 +44,7 @@ export function stringToRace(str: string): Race | null {
 }
 
 export enum ActionCode {
+    CUSTOM = 'CUSTOM',
     PEASANT = 'PEASANT',
     FOOTMAN = 'FOOTMAN',
     RIFLEMAN = 'RIFLEMAN',
@@ -63,10 +64,44 @@ export enum ActionCode {
     ARCANE_TOWER = 'ARCANE_TOWER',
     GUARD_TOWER = 'GUARD_TOWER',
     LUMBERMILL = 'LUMBERMILL',
-    PEON = 'PEON',
     WISP = 'WISP',
+    ARCHER = 'ARCHER',
+    HUNTRESS = 'HUNTRESS',
+    GLAIVE_THROWER = 'GLAIVE_THROWER',
+    MOON_WELL = 'MOON_WELL',
+    ALTAR_OF_ELDERS = 'ALTAR_OF_ELDERS',
+    ANCIENT_OF_WAR = 'ANCIENT_OF_WAR',
+    HUNTERS_HALL = 'HUNTERS_HALL',
+    TREE_OF_LIFE = 'TREE_OF_LIFE',
+    ANCIENT_PROTECTOR = 'ANCIENT_PROTECTOR',
+    ANCIENT_OF_WONDERS = 'ANCIENT_OF_WONDERS',
+    TREE_OF_AGES = 'TREE_OF_AGES',
+    DEMON_HUNTER = 'DEMON_HUNTER',
+    KEEPER_OF_THE_GROVE = 'KEEPER_OF_THE_GROVE',
+    PRIESTESS_OF_THE_MOON = 'PRIESTESS_OF_THE_MOON',
+    WARDEN = 'WARDEN',
     ACOLYTE = 'ACOLYTE',
     CRYPT = 'CRYPT',
     GHOUL = 'GHOUL',
-    CUSTOM = 'CUSTOM',
+    PEON = 'PEON',
+}
+
+export enum ActionCodeType {
+    BUILDING = 'Build',
+    UNIT = 'Train',
+    HERO = 'Recruit',
+    UPGRADE = 'Upgrade',
+    RESEARCH = 'Research',
+}
+
+export interface ActionCodeDetails {
+    name: string,
+    src: string,
+    code: ActionCode,
+    type?: ActionCodeType,
+    requires?: ActionCode[],
+    foodCost?: number,
+    foodProvided?: number,
+    description?: string,
+    race?: Race,
 }

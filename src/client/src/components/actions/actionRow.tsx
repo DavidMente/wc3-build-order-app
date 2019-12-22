@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
-import {ActionCodeType, getActionCodesByRaceAndType, mapActionCodeToDetails} from '../../store/common/actionCodes';
-import {ActionCode, Race} from '../../store/common/types';
+import {getActionCodesByRaceAndType, mapActionCodeToDetails} from '../../store/common/actionCodes';
+import {ActionCode, ActionCodeType, Race} from '../../store/common/types';
 import ActionGridItem from './actionGridItem';
 
 interface ActionRowProps {
