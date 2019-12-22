@@ -2,6 +2,11 @@ import mongoose, {Schema} from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
 import crypto from 'crypto';
 import {ActionCode, Race} from '../client/src/store/common/types';
+import striptags from 'striptags';
+
+function sanitizeHtml(value: string) {
+    return striptags(value);
+}
 
 const actionSchema: Schema = new Schema({
     id: {
@@ -24,6 +29,7 @@ const actionSchema: Schema = new Schema({
         type: String,
         maxlength: 500,
         trim: true,
+        set: sanitizeHtml,
     },
 });
 
@@ -35,16 +41,19 @@ const buildOrderSchema: Schema = new Schema({
         maxlength: 100,
         trim: true,
         unique: true,
+        set: sanitizeHtml,
     },
     author: {
         type: String,
         maxlength: 20,
         trim: true,
+        set: sanitizeHtml,
     },
     description: {
         type: String,
         maxlength: 1000,
         trim: true,
+        set: sanitizeHtml,
     },
     race: {
         type: String,
@@ -58,6 +67,7 @@ const buildOrderSchema: Schema = new Schema({
     password: {
         type: String,
         default: () => crypto.randomBytes(16).toString('hex'),
+        set: sanitizeHtml,
     },
     views: {
         type: Number,
