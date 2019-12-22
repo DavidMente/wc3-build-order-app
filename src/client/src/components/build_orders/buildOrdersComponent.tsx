@@ -7,11 +7,13 @@ import {BuildOrdersParams} from '../../store/build_orders/types';
 import BuildOrdersSearch from './buildOrdersSearch';
 import BuildOrdersRaceFilter from './buildOrdersRaceFilter';
 import BuildOrdersSorting from './buildOrdersSorting';
+import {LoadStatus} from '../../store/common/types';
 
 const mapState = (rootState: RootState) => {
     return {
         buildOrders: rootState.buildOrders.buildOrders,
         params: rootState.buildOrders.params,
+        isLoading: rootState.buildOrders.loadStatus === LoadStatus.LOADING,
     };
 };
 
@@ -22,13 +24,13 @@ const mapDispatch = {
 const connector = connect(mapState, mapDispatch);
 
 const BuildOrdersComponent: FunctionComponent<ConnectedProps<typeof connector>> =
-    ({buildOrders = [], fetchData, params}) => {
+    ({buildOrders = [], fetchData, params, isLoading}) => {
 
         useEffect(() => {
             fetchData(params);
         }, [fetchData, params]);
 
-        return <div>
+        return isLoading ? <div className={'button is-loading'}/> : <div>
             <div className={'columns is-mobile'}>
                 <div className={'column is-narrow'}>
                     <BuildOrdersSearch/>

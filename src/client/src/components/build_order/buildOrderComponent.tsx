@@ -8,6 +8,7 @@ import {BuildOrderLayout} from './buildOrderLayout';
 import slugify from 'slugify';
 import {BuildOrderHeader} from './buildOrderHeader';
 import EditBuildOrderButton from './editBuildOrderButton';
+import {LoadStatus} from '../../store/common/types';
 
 const mapState = (state: RootState) => {
     return {
@@ -15,6 +16,7 @@ const mapState = (state: RootState) => {
             ...state.buildOrder,
             tasks: state.buildOrder.tasks,
         },
+        isLoading: state.buildOrder.loadStatus === LoadStatus.LOADING,
     };
 };
 
@@ -30,7 +32,7 @@ const connector = connect(
 type BuildOrderFormProps = ConnectedProps<typeof connector> & RouteComponentProps<any>
 
 const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
-    ({buildOrder, fetchData, match, location}) => {
+    ({buildOrder, fetchData, match, location, isLoading}) => {
 
         useEffect(() => {
             if (match.params.id) {
@@ -48,7 +50,7 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
             document.execCommand('copy');
         };
 
-        return <BuildOrderLayout
+        return isLoading ? <div className={'button is-loading'}/> : <BuildOrderLayout
             header={
                 <div>
                     <div className={'box'}>

@@ -14,11 +14,12 @@ import {
     SELECT_BUILD_ORDER_RACE,
     SET_BUILD_ORDER_FORM,
     SET_BUILD_ORDER_FORM_ERRORS,
+    SET_LOAD_STATUS,
     UPDATE_BUILD_ORDER,
 } from './types';
 import {Dispatch} from 'redux';
 import {BuildOrderApi} from '../../api/buildOrderApi';
-import {ActionCode, BuildOrderDescription, FormErrors, Race} from '../common/types';
+import {ActionCode, BuildOrderDescription, FormErrors, LoadStatus, Race} from '../common/types';
 import {PasswordRepository} from '../../local_storage/PasswordRepository';
 import {push} from 'connected-react-router';
 import slugify from 'slugify';
@@ -87,6 +88,7 @@ export function updateBuildOrder(buildOrderDescription: BuildOrderDescription): 
 }
 
 export const saveBuildOrder = (buildOrder: BuildOrderForm) => (dispatch: Dispatch) => {
+    dispatch(setFormLoadStatus(LoadStatus.SAVING));
     BuildOrderApi.saveBuildOrder(buildOrder)
         .then(({data}) => {
             dispatch(saveBuildOrderSuccess(data));
@@ -97,7 +99,8 @@ export const saveBuildOrder = (buildOrder: BuildOrderForm) => (dispatch: Dispatc
             if ([422, 403].includes(error.response.status)) {
                 dispatch(setBuildOrderFormErrors(error.response.data.errors));
             }
-        });
+        })
+        .finally(() => dispatch(setFormLoadStatus(LoadStatus.LOADED)));
 };
 
 export function saveBuildOrderSuccess(buildOrder: BuildOrderForm): BuildOrderFormActionTypes {
@@ -108,10 +111,12 @@ export function saveBuildOrderSuccess(buildOrder: BuildOrderForm): BuildOrderFor
 }
 
 export const fetchBuildOrderForm = (id: number) => async (dispatch: Dispatch) => {
+    dispatch(setFormLoadStatus(LoadStatus.LOADING));
     const response = await BuildOrderApi.getBuildOrder(id);
     if (response.status === 200) {
         dispatch(setBuildOrderForm(response.data));
     }
+    dispatch(setFormLoadStatus(LoadStatus.LOADED));
 };
 
 export function setBuildOrderForm(buildOrder: BuildOrderForm): BuildOrderFormActionTypes {
@@ -134,8 +139,16 @@ export function resetBuildOrderForm(): BuildOrderFormActionTypes {
     };
 }
 
+export function setFormLoadStatus(loadStatus: LoadStatus): BuildOrderFormActionTypes {
+    return {
+        type: SET_LOAD_STATUS,
+        payload: loadStatus,
+    };
+}
+
 export const deleteBuildOrder = (id: number, password: string) => (dispatch: Dispatch) => {
     if (window.confirm('Are you sure?')) {
+        dispatch(setFormLoadStatus(LoadStatus.DELETING));
         BuildOrderApi.deleteBuildOrder(id, password)
             .then(() => {
                 dispatch(resetBuildOrderForm());
@@ -145,6 +158,7 @@ export const deleteBuildOrder = (id: number, password: string) => (dispatch: Dis
                 if ([403].includes(error.response.status)) {
                     dispatch(setBuildOrderFormErrors(error.response.data.errors));
                 }
-            });
+            })
+            .finally(() => dispatch(setFormLoadStatus(LoadStatus.LOADED)));
     }
 };

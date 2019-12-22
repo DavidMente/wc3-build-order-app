@@ -1,9 +1,10 @@
-import {ActionCode, BuildOrderDescription, Form, FormErrors, Race} from '../common/types';
+import {ActionCode, BuildOrderDescription, Form, FormErrors, LoadStatus, Race} from '../common/types';
 
 export interface BuildOrderForm extends BuildOrderDescription, Form {
     race: Race | null,
     tasks: BuildOrderTask[],
     _id?: number,
+    loadStatus: LoadStatus,
 }
 
 export interface BuildOrderTaskDescription {
@@ -33,6 +34,7 @@ export const RESET_BUILD_ORDER_FORM = 'RESET_BUILD_ORDER_FORM';
 export const DELETE_BUILD_ORDER = 'DELETE_BUILD_ORDER';
 export const ADD_TASK_INDENT = 'ADD_TASK_INDENT';
 export const DECREASE_TASK_INDENT = 'DECREASE_TASK_INDENT';
+export const SET_LOAD_STATUS = 'SET_LOAD_STATUS';
 
 interface AddBuildOrderTask {
     type: typeof ADD_BUILD_ORDER_TASK,
@@ -107,6 +109,11 @@ interface DeleteBuildOrder {
     type: typeof DELETE_BUILD_ORDER,
 }
 
+interface SetLoadingStatus {
+    type: typeof SET_LOAD_STATUS,
+    payload: LoadStatus,
+}
+
 export type BuildOrderFormActionTypes =
     RemoveBuildOrderTask
     | AddBuildOrderTask
@@ -122,3 +129,4 @@ export type BuildOrderFormActionTypes =
     | DeleteBuildOrder
     | AddTaskIndent
     | DecreaseTaskIndent
+    | SetLoadingStatus

@@ -10,6 +10,7 @@ import SaveBuildOrder from './saveBuildOrder';
 import {BuildOrderTaskComponent} from '../build_order/buildOrderTaskComponent';
 import EditBuildOrderMetadata from './editBuildOrderMetadata';
 import DeleteBuildOrder from './deleteBuildOrder';
+import {LoadStatus} from '../../store/common/types';
 
 const mapState = (state: RootState) => {
     return {
@@ -17,6 +18,7 @@ const mapState = (state: RootState) => {
             ...state.buildOrderForm,
             tasks: state.buildOrderForm.tasks,
         },
+        isLoading: state.buildOrderForm.loadStatus === LoadStatus.LOADING,
     };
 };
 
@@ -32,52 +34,53 @@ const connector = connect(
 
 type BuildOrderFormProps = ConnectedProps<typeof connector> & RouteComponentProps<any>
 
-const BuildOrderForm: FunctionComponent<BuildOrderFormProps> = ({buildOrder, fetchData, resetForm, match}) => {
+const BuildOrderForm: FunctionComponent<BuildOrderFormProps> =
+    ({buildOrder, fetchData, resetForm, match, isLoading}) => {
 
-    useEffect(() => {
-        if (match.params.id) {
-            fetchData(match.params.id);
-        } else {
-            resetForm();
-        }
-    }, [match.params.id, fetchData, resetForm]);
+        useEffect(() => {
+            if (match.params.id) {
+                fetchData(match.params.id);
+            } else {
+                resetForm();
+            }
+        }, [match.params.id, fetchData, resetForm]);
 
-    return <BuildOrderLayout
-        header={
-            <div>
-                <div className={'box'}>
-                    <EditBuildOrderMetadata isNewBuildOrder={buildOrder._id === undefined}/>
+        return isLoading ? <div className={'button is-loading'}/> : <BuildOrderLayout
+            header={
+                <div>
+                    <div className={'box'}>
+                        <EditBuildOrderMetadata isNewBuildOrder={buildOrder._id === undefined}/>
+                    </div>
+                    <div className={'box'}>
+                        <RaceSelect/>
+                    </div>
                 </div>
-                <div className={'box'}>
-                    <RaceSelect/>
+            }
+            actions={
+                <ActionGrid/>
+            }
+            buildOrder={
+                <div>
+                    {buildOrder.tasks.map((task, index) =>
+                        <BuildOrderTaskComponent
+                            indentation={task.indentation}
+                            key={task.id} id={task.id}
+                            actionCode={task.actionCode}
+                            description={task.description}
+                            editMode={true}
+                            isFirst={index === 0}
+                            isLast={index === buildOrder.tasks.length - 1}
+                        />)}
                 </div>
-            </div>
-        }
-        actions={
-            <ActionGrid/>
-        }
-        buildOrder={
-            <div>
-                {buildOrder.tasks.map((task, index) =>
-                    <BuildOrderTaskComponent
-                        indentation={task.indentation}
-                        key={task.id} id={task.id}
-                        actionCode={task.actionCode}
-                        description={task.description}
-                        editMode={true}
-                        isFirst={index === 0}
-                        isLast={index === buildOrder.tasks.length - 1}
-                    />)}
-            </div>
-        }
-        summary={
-            <div>
-                {buildOrder.tasks.length > 0 ? <SaveBuildOrder/> : ''}
-                {buildOrder._id !== undefined ? <DeleteBuildOrder/> : ''}
-                {Object.keys(buildOrder.errors).length > 0 ?
-                    <p className={'help is-danger'}>There are form or password errors!</p> : ''}
-            </div>
-        }/>;
-};
+            }
+            summary={
+                <div>
+                    {buildOrder.tasks.length > 0 ? <SaveBuildOrder/> : ''}
+                    {buildOrder._id !== undefined ? <DeleteBuildOrder/> : ''}
+                    {Object.keys(buildOrder.errors).length > 0 ?
+                        <p className={'help is-danger'}>There are form or password errors!</p> : ''}
+                </div>
+            }/>;
+    };
 
 export default connector(withRouter(BuildOrderForm));

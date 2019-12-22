@@ -13,10 +13,12 @@ import {
     SELECT_BUILD_ORDER_RACE,
     SET_BUILD_ORDER_FORM,
     SET_BUILD_ORDER_FORM_ERRORS,
+    SET_LOAD_STATUS,
     UPDATE_BUILD_ORDER,
 } from './types';
 import {PasswordRepository} from '../../local_storage/PasswordRepository';
 import {mapActionCodeToDetails} from '../common/actionCodes';
+import {LoadStatus} from '../common/types';
 
 const initialState: BuildOrderForm = {
     name: null,
@@ -25,6 +27,7 @@ const initialState: BuildOrderForm = {
     race: null,
     tasks: [],
     errors: {},
+    loadStatus: LoadStatus.LOADING,
 };
 
 function generateId(tasks: BuildOrderTask[]): number {
@@ -70,6 +73,10 @@ function moveElement(moveTask: BuildOrderTask, tasks: BuildOrderTask[], targetIn
 
 export function buildOrderFormReducer(state = initialState, action: BuildOrderFormActionTypes): BuildOrderForm {
     switch (action.type) {
+        case SET_LOAD_STATUS:
+            return {
+                ...state, loadStatus: action.payload,
+            };
         case ADD_BUILD_ORDER_TASK:
             const actionCodeProps = mapActionCodeToDetails(action.payload);
             const description = actionCodeProps.description ||
@@ -150,6 +157,7 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
                 description: action.payload.description,
                 author: action.payload.author,
                 password: action.payload.password,
+                loadStatus: LoadStatus.LOADED,
             };
         case SET_BUILD_ORDER_FORM:
             return {
@@ -161,6 +169,7 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
                 _id: action.payload._id,
                 password: action.payload.password || PasswordRepository.getPassword(action.payload._id),
                 errors: {},
+                loadStatus: LoadStatus.LOADED,
             };
         case RESET_BUILD_ORDER_FORM:
             return {
@@ -170,6 +179,7 @@ export function buildOrderFormReducer(state = initialState, action: BuildOrderFo
                 race: null,
                 tasks: [],
                 errors: {},
+                loadStatus: LoadStatus.LOADED,
             };
         case SET_BUILD_ORDER_FORM_ERRORS:
             return {

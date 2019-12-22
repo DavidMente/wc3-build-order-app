@@ -13,6 +13,7 @@ export interface BuildOrder extends BuildOrderDescription {
     tasks: BuildOrderTask[],
     _id?: number,
     views: number,
+    loadStatus: LoadStatus,
 }
 
 interface FormError {
@@ -142,4 +143,12 @@ export interface ActionCodeDetails {
     foodProvided?: number,
     description?: string,
     race?: Race,
+}
+
+export enum LoadStatus {
+    LOADING = 'LOADING',
+    SAVING = 'SAVING',
+    LOADED = 'LOADED',
+    FAILED = 'FAILED',
+    DELETING = 'DELETING',
 }
