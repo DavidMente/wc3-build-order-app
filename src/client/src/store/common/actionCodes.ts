@@ -1,5 +1,5 @@
 import {ActionCode, ActionCodeDetails, ActionCodeType, Race} from './types';
-import peasantImg from '../../assets/images/units/Peasant.png';
+import peasantImg from '../../assets/images/units/peasant.png';
 import defendImg from '../../assets/images/research/Defend.png';
 import archmageImg from '../../assets/images/units/Archmage.png';
 import mountainKingImg from '../../assets/images/units/MountainKing.png';
