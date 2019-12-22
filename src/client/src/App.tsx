@@ -12,7 +12,8 @@ import Footer from './components/footer';
 import {withTracker} from './withTracker';
 import GoogleAnalytics from 'react-ga';
 
-GoogleAnalytics.initialize(process.env.GOOGLE_ANALYTICS || 'UA-0000000-0');
+GoogleAnalytics.initialize(process.env.GOOGLE_ANALYTICS || 'UA-0000000-0',
+    {testMode: process.env.GOOGLE_ANALYTICS === undefined});
 
 class App extends Component {
     public render() {
