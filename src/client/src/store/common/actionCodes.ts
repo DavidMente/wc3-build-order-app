@@ -67,6 +67,8 @@ import altarOfDarknessImg from '../../assets/images/buildings/UndeadAltarofDarkn
 import necropolisImg from '../../assets/images/buildings/UndeadNecropolis.png';
 import hallOfTheDeadImg from '../../assets/images/buildings/UndeadHalloftheDead.png';
 import tombOfRelicsImg from '../../assets/images/buildings/UndeadTombofRelics.png';
+import nerubianTowerImg from '../../assets/images/buildings/UndeadZigguratNerubianTower.png';
+import spiritTowerImg from '../../assets/images/buildings/UndeadZigguratSpiritTower.png';
 import deathKnightImg from '../../assets/images/units/DeathKnight.png';
 import lichImg from '../../assets/images/units/Lich.png';
 import dreadLordImg from '../../assets/images/units/DreadLord.png';
@@ -290,7 +292,7 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
     }],
     [ActionCode.ANCIENT_PROTECTOR, {
         name: 'Ancient Protector', src: ancientProtectorImg, type: ActionCodeType.BUILDING, race: Race.NIGHTELF,
-        code: ActionCode.ANCIENT_PROTECTOR, requires: [ActionCode.HUNTERS_HALL]
+        code: ActionCode.ANCIENT_PROTECTOR, requires: [ActionCode.HUNTERS_HALL],
     }],
     [ActionCode.ANCIENT_OF_WONDERS, {
         name: 'Ancient of Wonders',
@@ -385,7 +387,7 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.UNIT, race: Race.UNDEAD, code: ActionCode.GRAVEYARD,
     }],
     [ActionCode.CRYPT, {
-        name: 'Crypt', src: cryptImg, type: ActionCodeType.UNIT, race: Race.UNDEAD, code: ActionCode.CRYPT,
+        name: 'Crypt', src: cryptImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD, code: ActionCode.CRYPT,
     }],
     [ActionCode.GRAVEYARD, {
         name: 'Graveyard', src: graveyardImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
@@ -400,8 +402,18 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         code: ActionCode.NECROPOLIS,
     }],
     [ActionCode.HALL_OF_THE_DEAD, {
-        name: 'Hall of the Dead', src: hallOfTheDeadImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
+        name: 'Hall of the Dead', src: hallOfTheDeadImg, type: ActionCodeType.UPGRADE, race: Race.UNDEAD,
         code: ActionCode.HALL_OF_THE_DEAD, description: TIER_2,
+    }],
+    [ActionCode.NERUBIAN_TOWER, {
+        name: 'Nerubian Tower', src: nerubianTowerImg, type: ActionCodeType.UPGRADE, race: Race.UNDEAD,
+        code: ActionCode.NERUBIAN_TOWER, description: 'Upgrade Ziggurat to Nerubian Tower',
+        requires: [ActionCode.ZIGGURAT],
+    }],
+    [ActionCode.SPIRIT_TOWER, {
+        name: 'Spirit Tower', src: spiritTowerImg, type: ActionCodeType.UPGRADE, race: Race.UNDEAD,
+        code: ActionCode.SPIRIT_TOWER, description: 'Upgrade Ziggurat to Spirit Tower',
+        requires: [ActionCode.ZIGGURAT],
     }],
     [ActionCode.TOMB_OF_RELICS, {
         name: 'Tomb of Relics', src: tombOfRelicsImg, type: ActionCodeType.BUILDING, race: Race.UNDEAD,
