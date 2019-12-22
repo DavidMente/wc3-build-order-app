@@ -30,7 +30,7 @@ const BuildOrdersComponent: FunctionComponent<ConnectedProps<typeof connector>> 
             fetchData(params);
         }, [fetchData, params]);
 
-        return isLoading ? <div className={'button is-loading'}/> : <div>
+        return <div>
             <div className={'columns is-mobile'}>
                 <div className={'column is-narrow'}>
                     <BuildOrdersSearch/>
@@ -42,14 +42,17 @@ const BuildOrdersComponent: FunctionComponent<ConnectedProps<typeof connector>> 
                     <BuildOrdersSorting/>
                 </div>
             </div>
-            {buildOrders.map((buildOrder) => <BuildOrderOverview key={buildOrder._id} id={buildOrder._id}
-                                                                 name={buildOrder.name}
-                                                                 description={buildOrder.description}
-                                                                 race={buildOrder.race}
-                                                                 author={buildOrder.author}
-                                                                 views={buildOrder.views}
-            />)}
-            {buildOrders.length === 0 ? <div className={'info'}>No results found</div> : ''}
+            {isLoading ? <div className={'button is-loading'}/> :
+                buildOrders.map((buildOrder) =>
+                    <BuildOrderOverview
+                        key={buildOrder._id} id={buildOrder._id}
+                        name={buildOrder.name}
+                        description={buildOrder.description}
+                        race={buildOrder.race}
+                        author={buildOrder.author}
+                        views={buildOrder.views}
+                    />)}
+            {!isLoading && buildOrders.length === 0 ? <div className={'info'}>No results found</div> : ''}
         </div>;
 
     };
