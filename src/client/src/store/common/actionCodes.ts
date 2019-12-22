@@ -1,19 +1,26 @@
 import {ActionCode, Race} from './types';
-import peasantImg from '../../assets/images/units/peasant.png';
-import riflemanImg from '../../assets/images/units/rifleman.png';
-import peonImg from '../../assets/images/units/peon.png';
-import wispImg from '../../assets/images/units/wisp.png';
-import acolyteImg from '../../assets/images/units/acolyte.png';
+import peasantImg from '../../assets/images/units/Peasant.png';
+import defendImg from '../../assets/images/research/Defend.png';
+import archmageImg from '../../assets/images/units/Archmage.png';
+import mountainKingImg from '../../assets/images/units/MountainKing.png';
+import paladinImg from '../../assets/images/units/Paladin.png';
+import bloodMageImg from '../../assets/images/units/BloodMage.png';
+import riflemanImg from '../../assets/images/units/Rifleman.png';
+import peonImg from '../../assets/images/units/Peon.png';
+import wispImg from '../../assets/images/units/Wisp.png';
+import acolyteImg from '../../assets/images/units/Acolyte.png';
 import farmImg from '../../assets/images/buildings/HumanFarm.png';
 import barracksImg from '../../assets/images/buildings/HumanBarracks.png';
 import blacksmithImg from '../../assets/images/buildings/HumanBlacksmith.png';
 import altarOfKingsImg from '../../assets/images/buildings/HumanAltarofKings.png';
-import footmanImg from '../../assets/images/units/footman.png';
+import footmanImg from '../../assets/images/units/Footman.png';
 import cryptImg from '../../assets/images/buildings/UndeadCrypt.png';
-import ghoulImg from '../../assets/images/units/ghoul.png';
+import ghoulImg from '../../assets/images/units/Ghoul.png';
 import townHallImg from '../../assets/images/buildings/HumanTownHall.png';
 import keepImg from '../../assets/images/buildings/HumanKeep.png';
 import scoutTowerImg from '../../assets/images/buildings/HumanScoutTower.png';
+import arcaneTowerImg from '../../assets/images/buildings/HumanArcaneTower.png';
+import guardTowerImg from '../../assets/images/buildings/HumanGuardTower.png';
 import arcaneVaultImg from '../../assets/images/buildings/HumanArcaneVault.png';
 import lumberMillImg from '../../assets/images/buildings/HumanLumberMill.png';
 import customImg from '../../assets/images/QuestionMark.png';
@@ -30,11 +37,12 @@ export function stringToActionCode(str: string): ActionCode {
 export enum ActionCodeType {
     BUILDING = 'Build',
     UNIT = 'Train',
+    HERO = 'Recruit',
     UPGRADE = 'Upgrade',
     RESEARCH = 'Research',
 }
 
-interface ActionCodeDetails {
+export interface ActionCodeDetails {
     name: string,
     src: string,
     code: ActionCode,
@@ -48,6 +56,10 @@ interface ActionCodeDetails {
 
 export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
     [ActionCode.CUSTOM, {code: ActionCode.CUSTOM, name: 'Custom', src: customImg}],
+    [ActionCode.DEFEND, {
+        name: 'Defend', src: defendImg, requires: [ActionCode.BARRACKS], type: ActionCodeType.RESEARCH,
+        race: Race.HUMAN, code: ActionCode.DEFEND,
+    }],
     [ActionCode.PEASANT, {
         code: ActionCode.PEASANT,
         name: 'Peasant',
@@ -63,6 +75,22 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
     [ActionCode.RIFLEMAN, {
         name: 'Rifleman', src: riflemanImg, requires: [ActionCode.BARRACKS, ActionCode.BLACKSMITH], foodCost: 3,
         type: ActionCodeType.UNIT, race: Race.HUMAN, code: ActionCode.RIFLEMAN,
+    }],
+    [ActionCode.ARCHMAGE, {
+        name: 'Archmage', src: archmageImg, requires: [ActionCode.ALTAR_OF_KINGS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.HUMAN, code: ActionCode.ARCHMAGE,
+    }],
+    [ActionCode.MOUNTAIN_KING, {
+        name: 'Mountain King', src: mountainKingImg, requires: [ActionCode.ALTAR_OF_KINGS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.HUMAN, code: ActionCode.MOUNTAIN_KING,
+    }],
+    [ActionCode.PALADIN, {
+        name: 'Paladin', src: paladinImg, requires: [ActionCode.ALTAR_OF_KINGS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.HUMAN, code: ActionCode.PALADIN,
+    }],
+    [ActionCode.BLOOD_MAGE, {
+        name: 'Blood Mage', src: bloodMageImg, requires: [ActionCode.ALTAR_OF_KINGS], foodCost: 5,
+        type: ActionCodeType.HERO, race: Race.HUMAN, code: ActionCode.BLOOD_MAGE,
     }],
     [ActionCode.FARM, {
         name: 'Farm',
@@ -113,6 +141,24 @@ export const actionCodesToDetailsMap = new Map<ActionCode, ActionCodeDetails>([
         type: ActionCodeType.BUILDING,
         race: Race.HUMAN,
         code: ActionCode.SCOUT_TOWER,
+    }],
+    [ActionCode.ARCANE_TOWER, {
+        name: 'Arcane Tower',
+        src: arcaneTowerImg,
+        type: ActionCodeType.UPGRADE,
+        race: Race.HUMAN,
+        code: ActionCode.ARCANE_TOWER,
+        requires: [ActionCode.SCOUT_TOWER, ActionCode.ARCANE_VAULT],
+        description: 'Upgrade Scout Tower to Arcane Tower',
+    }],
+    [ActionCode.GUARD_TOWER, {
+        name: 'Guard Tower',
+        src: guardTowerImg,
+        type: ActionCodeType.UPGRADE,
+        race: Race.HUMAN,
+        code: ActionCode.GUARD_TOWER,
+        requires: [ActionCode.SCOUT_TOWER, ActionCode.LUMBERMILL],
+        description: 'Upgrade Scout Tower to Guard Tower',
     }],
     [ActionCode.TOWN_HALL, {
         name: 'Town Hall',
