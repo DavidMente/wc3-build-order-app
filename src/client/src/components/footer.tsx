@@ -8,7 +8,7 @@ const Footer: FunctionComponent<RouteComponentProps<any>> = ({location}) => {
     return !isEmbedded ? <footer className='footer'>
         <div className={'columns'}>
             <div className='column'>
-                <h3 className={'title is-5'}>About</h3>
+                <h3 className={'title is-5'}><i className={'far fa-address-card'}/> About</h3>
                 <p>This app was made by David Mente from <a href={'https://warcraft3.info'}
                                                             target={'_blank'}>Warcraft3.Info</a>.</p>
                 <p>The code is available on <i className='fab fa-github'/> <a
@@ -16,7 +16,7 @@ const Footer: FunctionComponent<RouteComponentProps<any>> = ({location}) => {
                     target={'_blank'}>Github</a>.</p>
             </div>
             <div className={'column'}>
-                <h3 className={'title is-5'}>Tutorial</h3>
+                <h3 className={'title is-5'}><i className={'far fa-question-circle'}/> Tutorial</h3>
                 <p className={'paragraph'}>Click on 'New Build Order' to create your own build order. After selecting
                     the race, you can add list
                     items by clicking on the action icons. Each action has some default text which you can change to

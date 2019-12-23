@@ -16,7 +16,7 @@ const EditBuildOrderButton: FunctionComponent<EditBuildOrderButtonProps & RouteC
 
         return <div>
             <button data-test-id={'edit-build-order'} onClick={() => redirectToBuildOrderForm(buildOrderId)}
-                    className={'button'}>Edit
+                    className={'button'}><i className={'far fa-edit'} style={{marginRight: '5px'}}/> Edit
             </button>
             <p className={'help is-inline-block edit-info'}>*You can only edit build orders if you have the right
                 password</p>
