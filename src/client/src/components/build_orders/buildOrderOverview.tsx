@@ -21,7 +21,7 @@ export const BuildOrderOverview: FunctionComponent<BuildOrderHeaderProps> =
                     <BuildOrderHeader name={name} race={race} author={author} views={views}/>
                 </div>
                 <div className={'column'}>
-                    {description}
+                    <p className={'pararaph text-with-linebreaks text-summary'}>{description}</p>
                 </div>
             </div>
         </Link>;

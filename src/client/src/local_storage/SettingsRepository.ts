@@ -17,7 +17,7 @@ export class SettingsRepository {
     }
 
     public static getSortBy(): BuildOrderSort {
-        return LocalStorage.get('sortBy') === 'id' ? BuildOrderSort.ID : BuildOrderSort.VIEWS;
+        return LocalStorage.get('sortBy') === 'views' ? BuildOrderSort.VIEWS : BuildOrderSort.ID;
     }
 
 }

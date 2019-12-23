@@ -82,3 +82,8 @@
 .text-with-linebreaks {
     white-space: pre-line;
 }
+
+.text-summary {
+    overflow: hidden;
+    max-height: 144px;
+}
