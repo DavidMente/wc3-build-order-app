@@ -85,7 +85,7 @@ const BuildOrderComponent: FunctionComponent<BuildOrderFormProps> =
                 <div>
                     {!isEmbedded ? <EditBuildOrderButton buildOrderId={buildOrder._id || 0}
                                                          buildOrderName={buildOrder.name || ''}/> :
-                        <a href={url}>Open in website</a>}
+                        <a target={'_blank'} href={url}>Open in website</a>}
                 </div>
             }
         />;
