@@ -23,7 +23,7 @@
     "mongoose": "^5.7.14",
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.9.1",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "tslib": "^1.10.0",
     "winston": "^3.2.1"
   },
